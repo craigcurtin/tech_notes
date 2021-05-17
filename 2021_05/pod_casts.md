@@ -5,15 +5,17 @@ https://softwareengineeringdaily.com/
 jeff@softwareengineeringdaily.com
 
 
+# Data Mechanics - similar to Databricks
+https://softwareengineeringdaily.com/2021/05/14/data-mechanics-data-engineering-with-jean-yves-stephan/
 
 
-# data management tools ....
+# Data management tools ....
 
 Apache Hudi:
 https://softwareengineeringdaily.com/2021/05/13/apache-hudi-large-scale-data-systems-with-vinoth-chandar/
 
 
-interesting API end-to-end management tool
+# interesting API end-to-end management tool
 https://softwareengineeringdaily.com/2021/05/12/akita-application-programming-interfaces-with-jean-yang/
 
 Jean is from CMU, now trying to take this further ... 
