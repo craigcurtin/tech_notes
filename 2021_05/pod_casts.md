@@ -20,3 +20,9 @@ https://softwareengineeringdaily.com/2021/05/12/akita-application-programming-in
 
 Jean is from CMU, now trying to take this further ... 
 
+
+# Snowflake
+https://www.snowflake.com/
+
+## marketplace for snowflake
+https://www.snowflake.com/data-marketplace/
