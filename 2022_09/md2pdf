@@ -1,0 +1,6 @@
+#
+
+# pandoc --pdf-engine=xelatex -V CJKmainfont="KaiTi" $1.md -o $1.pdf
+
+:wq
+ pandoc $1.md -s -o $1.pdf
