@@ -1,0 +1,56 @@
+
+  "WebServerInstance": {
+    "Type" : "AWS::EC2::Instance",
+    "Metadata" : {
+      "AWS::CloudFormation::Init" : {
+        "config" : {
+          "packages" : {
+            "yum" : {
+              "httpd"             : [],
+              "php"               : []
+            }
+          },
+
+          "files" : {
+
+            "/var/www/html/index.php" : {
+              "content" : { "Fn::Join" : ["", [
+                "<?php\n",
+                "echo '<h1>AWS CloudFormation sample PHP application</h1>';\n",
+                "echo '<p>", { "Ref" : "WelcomeMessage" }, "</p>';\n",
+                "?>\n"
+              ]]},
+              "mode"    : "000644",
+              "owner"   : "apache",
+              "group"   : "apache"
+            },
+          },
+
+          :
+
+          "services" : {
+            "sysvinit" : {
+              "httpd"    : { "enabled" : "true", "ensureRunning" : "true" }
+            }
+          }
+        }
+      }
+    },
+
+    "Properties": {
+      :
+      "UserData"       : { "Fn::Base64" : { "Fn::Join" : ["", [
+        "#!/bin/bash\n",
+        "yum install -y aws-cfn-bootstrap\n",
+
+        :
+
+        "# Install the files and packages from the metadata\n",
+        "/opt/aws/bin/cfn-init -v ",
+        "         --stack ", { "Ref" : "AWS::StackName" },
+        "         --resource WebServerInstance ",
+        "         --region ", { "Ref" : "AWS::Region" }, "\n", 
+        :
+      ]]}}
+    }
+  },     

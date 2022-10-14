@@ -16,6 +16,7 @@ Mappings:
 Resources:
   MyInstance:
     Type: AWS::EC2::Instance
+    Name: myInstance
     Properties:
       ImageId: !FindInMap [AMIMap, !Ref "AWS::Region", dev]
       InstanceType: !FindInMap [InstanceMap,!Ref "AWS::Region", dev]
