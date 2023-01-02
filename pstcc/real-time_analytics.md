@@ -7,6 +7,8 @@ They are
 1. concurrency, 
 
 
+!include real-time_imgestion.png
+
 see real-time_imgestion.png diagram
 
 ## Latency
