@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cd4b21f7-077e-44a4-991d-92b4bcff606b" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../Cloudformation/EC2InstanceMappings.yml" beforeDir="false" afterPath="$PROJECT_DIR$/../Cloudformation/EC2InstanceMappings.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../2022_09/python.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,6 +12,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="e633567e-6061-47a6-a0ef-4a97f592a205" />
+        <option name="url" value="git@github.com:craigcurtin/tech_notes.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

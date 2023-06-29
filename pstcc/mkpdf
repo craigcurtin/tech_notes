@@ -1,2 +1,2 @@
 
-pandoc $1.md > $1.pdf
+pandoc $1.md --filter pandoc-include -o $1.pdf

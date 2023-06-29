@@ -1,0 +1,176 @@
+<h1 id="notes-from-real-time-analytics-text">notes from real-time
+analytics text …</h1>
+<h1 id="impediments-to-real-time-analytics">impediments to real-time
+analytics</h1>
+<p>They are 1. latency, 1. freshness, 1. throughput, and 1.
+concurrency,</p>
+<p>!include real-time_imgestion.png</p>
+<p>see real-time_imgestion.png diagram</p>
+<h2 id="latency">Latency</h2>
+<p>The speed of your data depends greatly on how it is stored, and that
+then dictates what needs to happen to pull and combine it into
+actionable information successfully.</p>
+<h2 id="freshness">Freshness</h2>
+<p>you need to react quickly when things change.</p>
+<p>How long does your company wait before data from your transaction
+systems is available for a model to make a prediction from it?</p>
+<h2 id="throughput">Throughput</h2>
+<p>In many cases, the volume you can process is heavily dependent on the
+bandwidth of the network passing the data, along with the number of
+nodes, processors, and memory levels of the databases used to store the
+data.</p>
+<p>Another issue related to throughput is change. Can your database
+rapidly update existing fields while simultaneously being able to add
+new fields? Can it add those new fields without needing to create an
+entirely new schema?</p>
+<h2 id="concurrency">Concurrency</h2>
+<p>Concurrency is also very susceptible to data growth.</p>
+<p>The combination of latency, freshness, throughput, and concurrency
+forms the basis of real-time analytics.</p>
+<h1 id="trade-offs-and-workarounds">Trade-offs and Workarounds</h1>
+<h2 id="freshness-for-latency">Freshness for Latency</h2>
+<h3 id="views">Views</h3>
+<ol type="1">
+<li>Materialized views are queries that generate a transformed copy of
+the data within the database, whereas</li>
+<li>non-materialized views execute at the time they are needed.</li>
+</ol>
+<h3 id="pre-aggregated-data">Pre-Aggregated Data</h3>
+<p>Aggregation removes the individual row-level detail from the data.
+While the aggregated view may produce summary results quickly, the
+resulting dataset may be missing key information that may be relevant to
+analysis.</p>
+<h3 id="batch-processing-ugh">Batch Processing (ugh …)</h3>
+<p>The fundamental trade-off with batch processing is freshness for
+latency.</p>
+<h2 id="concurrency-for-latency">Concurrency for Latency</h2>
+<h3 id="query-queuing">Query Queuing</h3>
+<h3 id="database-clustering">Database Clustering</h3>
+<p>Another method for improving concurrency is database separation. This
+technique organizes schemas and tables by content, keeping disparate
+data separate.</p>
+<p>Throughput for Latency and Overall Efficiency 1. Poorly written
+queries Users writing code against the analytics database pull more data
+than needed or use methodologies that require more processing to
+complete (such as using a WHERE clause in place of an inner join).</p>
+<ol type="1">
+<li><p>Indexing While they improve query performance, they delay the
+write process as the new data is indexed.</p></li>
+<li><p>Too much access establish un-needed access, remove users, push
+downstream, etc.</p></li>
+<li><p>Resources</p></li>
+</ol>
+<p>The database server’s processor, memory, and/or storage allocation is
+insufficient to maintain the required usage. Network performance is also
+vital in large-volume data reporting and analytics.</p>
+<h3 id="indexing">Indexing</h3>
+<p>quicker access to ‘key’ data … These chunks contain a portion of the
+data and a pointer to another location on disk where a continuation of
+the data might be found.</p>
+<p>The downside to indexes is that they take up additional space on the
+server and are expensive to maintain.</p>
+<h3 id="resources">Resources</h3>
+<p>The more servers and architecture a company adds, the more personnel
+resources are required to keep those systems running.</p>
+<p>Some companies will simply resort to smaller reporting windows or
+limited data. They are forced to pull two to three years because five
+years simply takes too much time and effort for their server to run.</p>
+<h1 id="driving-forces-of-real-time">Driving Forces of Real Time</h1>
+<ol type="1">
+<li><p>Historical (descriptive) reporting What happened and
+when?</p></li>
+<li><p>Diagnostic analytics Why did these things happen?</p></li>
+<li><p>Predictive analytics When will this thing happen again?</p></li>
+<li><p>Preemptive analytics How do we stop this thing from happening
+again?</p></li>
+</ol>
+<h1 id="collecting-real-time-data">Collecting Real-Time Data</h1>
+<p>The main component of real-time is streaming event data. Event
+streams encapsulate an unbounded stream of structured row data
+continuously fed into the database.</p>
+<h1 id="combining-real-time-data-with-historical-data">Combining
+Real-Time Data with Historical Data</h1>
+<h1 id="real-time-analytics-database-solutions">Real-Time Analytics
+Database Solutions</h1>
+<h2 id="indexes">Indexes</h2>
+<ol type="1">
+<li><p>Sparse indexes Indexes do not contain all values from the field
+but rather indicate a range where the queried value might be
+found.</p></li>
+<li><p>Aggregating indexes Instead of the query engine finding all the
+data and then aggregating, the indexer aggregates and groups on the
+fly.</p></li>
+<li><p>Join indexes Contains information from multiple tables (or
+multiple columns within a table). A join index is a separate table that
+can also be used to join two other tables.</p></li>
+<li><p>Metadata indexes Uses information about the data to organize it
+in an easily navigable hierarchical structure.</p></li>
+<li><p>String indexes These are indexes of values within a string and
+can be used to identify substrings quickly and efficiently.</p></li>
+</ol>
+<h2 id="columnar-databases">Columnar Databases</h2>
+<p>Traditionally, databases store data in rows, which is incredibly
+efficient when writing data. This is typically important in
+transactional systems.</p>
+<p>But, when databases get larger, the advantages of row level data
+start to wane.</p>
+<p>The alternative is a columnar database. In columnar databases, the
+data is stored in columns. Writing the data takes additional time, as
+multiple passes through the database are required to populate the
+individual columns. However, columnar databases perform much faster when
+it comes to reading larger amounts of data for analytics, because
+columnar data allows the computer to bypass irrelevant information to
+get to the data relevant to your request.</p>
+<p>Examples of columnar databases include Druid, HBase, Kudu, MonetDB,
+and Clickhouse.</p>
+<h2 id="processing-order">Processing Order</h2>
+<p>Resources designated for storing data are kept separate from
+resources devoted to computations, indexing, and aggregation, which
+means database maintenance actions do not interfere with the performance
+of read actions used for analysis.</p>
+<h3 id="bitmap-indexes-making-data-for-computers">Bitmap Indexes: Making
+Data for Computers</h3>
+<h3 id="shards">Shards</h3>
+<p>This is where the database is broken down into chunks associated with
+specific dimensions or rows. Partitioning the data into shards allows
+transactional systems to write data to multiple shards
+simultaneously.</p>
+<p>Breaking the database into shards facilitates horizontal
+expansion.</p>
+<h2 id="case-studies">Case Studies</h2>
+<h3 id="technology-driven-video-advertising">Technology-Driven Video
+Advertising</h3>
+<p>A global leader in cable and video advertising collects data from
+more than six billion devices. This data is accurate, rich, and valuable
+as part of its strategy for providing customized, targeted advertising.
+The problem was that this data was huge, and the resources required to
+provide near-real-time targeted advertising were immense. To meet the
+need, the company established several hundred Hadoop servers and used
+them to batch process and pre-aggregate the data. Still, with this huge
+investment in hardware and tools, the process took one to three days to
+send a targeted ad to a customer.</p>
+<h4 id="solution">Solution</h4>
+<ol type="1">
+<li><p>The company went from over 1,000 nodes to only 11.</p></li>
+<li><p>Its virtual CPUs were cut by more than half from 3,400 to only
+1,400.</p></li>
+<li><p>Its data went from being 1–3 days old to only 20 minutes
+old.</p></li>
+<li><p>eIts queries dropped from 12 hours to less than a
+minute.</p></li>
+</ol>
+<h3 id="digital-advertising">Digital Advertising</h3>
+<h4 id="solution-1">Solution</h4>
+<p>By integrating ideas like bitmap indexing, columnar databases, and
+sharding, the large aggregation table was no longer required. What’s
+more, the time it took to query the data went from days to about 45
+milliseconds.</p>
+<h3 id="marketing-campaign-performance">Marketing Campaign
+Performance</h3>
+<p>This company struggled with 200 million contacts in its CRM system,
+combined with over a terabyte of daily data updates.</p>
+<h4 id="solutoin">Solutoin</h4>
+<h2 id="author">Author</h2>
+<p>Christopher Gardner Christopher James Gardner Title Business
+Intelligence Analyst Lead Affiliation Alumni ITS DISC Data Innov Sys
+&amp; Cld - Faculty and Staff</p>
