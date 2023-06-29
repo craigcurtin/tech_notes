@@ -1,17 +1,15 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-
-
 # This example shows how you can use the MQTT client in a class.
 
 #import context  # Ensures paho is in PYTHONPATH
 
 import paho.mqtt.client as mqtt
 
-
 class MyMQTTClass(mqtt.Client):
 
     def __init__(self, host, port=1883, keepalive=60):
+        super().__init__() # since overriding, we need to call super()
         self.host = host
         self.port = port
         self.keepalive = keepalive
@@ -33,11 +31,8 @@ class MyMQTTClass(mqtt.Client):
     def on_log(self, mqttc, obj, level, string):
         print(string)
 
-
-
     def run(self):
-        #self.connect(self.host, self.port, self.keepalive)
-        self.connect("mqtt.eclipseprojects.io", 1883, 60)
+        self.connect(self.host, self.port, self.keepalive)
         self.subscribe("$SYS/#", 0)
 
         rc = 0
@@ -54,4 +49,4 @@ if __name__ == '__main__':
     mqttc = MyMQTTClass("mqtt.eclipseprojects.io", 1883, 60)
     rc = mqttc.run()
 
-print("rc: "+str(rc))
+    print("rc: "+str(rc))
