@@ -4,13 +4,17 @@
 
 # This example shows how you can use the MQTT client in a class.
 
-import context  # Ensures paho is in PYTHONPATH
+#import context  # Ensures paho is in PYTHONPATH
 
 import paho.mqtt.client as mqtt
 
 
 class MyMQTTClass(mqtt.Client):
 
+    def __init__(self, host, port=1883, keepalive=60):
+        self.host = host
+        self.port = port
+        self.keepalive = keepalive
     def on_connect(self, mqttc, obj, flags, rc):
         print("rc: "+str(rc))
 
@@ -29,8 +33,10 @@ class MyMQTTClass(mqtt.Client):
     def on_log(self, mqttc, obj, level, string):
         print(string)
 
+
+
     def run(self):
-        self.connect("mqtt.eclipseprojects.io", 1883, 60)
+        self.connect(self.host, self.port, self.keepalive)
         self.subscribe("$SYS/#", 0)
 
         rc = 0
@@ -38,12 +44,13 @@ class MyMQTTClass(mqtt.Client):
             rc = self.loop()
         return rc
 
+
 if __name__ == '__main__':
     # If you want to use a specific client id, use
     # mqttc = MyMQTTClass("client-id")
     # but note that the client id must be unique on the broker. Leaving the client
     # id parameter empty will generate a random id for you.
-    mqttc = MyMQTTClass()
+    mqttc = MyMQTTClass("mqtt.eclipseprojects.io", 1883, 60)
     rc = mqttc.run()
 
 print("rc: "+str(rc))
