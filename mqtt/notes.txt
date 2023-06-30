@@ -1,1 +1,7 @@
 Just adding some notes 
+
+https://mqtt.org/use-cases/
+
+https://awesomerank.github.io/lists/hobbyquaker/awesome-mqtt.html#visualization-dashboards
+
+https://ultimate-comparisons.github.io/ultimate-message-broker-comparison/
