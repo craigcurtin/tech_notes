@@ -5,3 +5,6 @@ https://mqtt.org/use-cases/
 https://awesomerank.github.io/lists/hobbyquaker/awesome-mqtt.html#visualization-dashboards
 
 https://ultimate-comparisons.github.io/ultimate-message-broker-comparison/
+
+
+https://www.eclipse.org/paho/index.php?page=clients/python/docs/index.php#usage-and-api
