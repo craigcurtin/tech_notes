@@ -13,6 +13,7 @@ class MyMQTTClass(mqtt.Client):
         self.host = host
         self.port = port
         self.keepalive = keepalive
+        self.topics = {}
     def on_connect(self, mqttc, obj, flags, rc):
         print("rc: "+str(rc))
 
@@ -31,6 +32,13 @@ class MyMQTTClass(mqtt.Client):
     def on_log(self, mqttc, obj, level, string):
         print(string)
 
+    def subscribe(self, topic, qos):
+        """keep a local cache of topics subscribed to ... persist to a file if there is a crash"""
+        if topic not in self.topics.keys():
+            self.topics[topic] = qos
+            super().subscribe(topic, qos)
+        else:
+            print (f"already subscribe to {topic} os of {topics[topic}")
     def run(self):
         self.connect(self.host, self.port, self.keepalive)
         self.subscribe("$SYS/#", 0)

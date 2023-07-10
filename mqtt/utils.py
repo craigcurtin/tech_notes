@@ -16,11 +16,11 @@ def get_ini(section_name, config_file_name=None):
     config = ConfigParser()
 
     if config_file_name is None:
-        config_file_name = ".mssql_db.conf"
+        config_file_name = ".mqtt.conf"
 
     # Note:
     # below is portable for *both* Win and Linux!
-    ini_file = Path("{}/{}".format(os.environ.get('HOME'), db_config_file_name))
+    ini_file = Path("{}/{}".format(os.environ.get('HOME'), config_file_name))
     assert os.path.isfile(ini_file), "error can't read ini file ... {}".format(ini_file)
     config.read(ini_file)
 

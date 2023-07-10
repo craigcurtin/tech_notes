@@ -1,7 +1,7 @@
 from MQTTClass import MQTTClass
 
 
-class Publisher():
+class Publisher(MyMQTTClass):
 
     def __init__(self, host, topic):
         self.mqtt =  host
