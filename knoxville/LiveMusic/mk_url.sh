@@ -6,7 +6,7 @@ set -x
 for MY_FILE in *.webloc; 
 do
         # cat the file, grep for string .... create new file
-        cat "$MY_FILE" | grep "<string>" | sed 's/<string>/URL=/' | sed 's/<\/string>//' > "${MY_FILE%.webloc}.url"; 
+        cat "$MY_FILE" | grep "<string>" | sed 's/<string>/URL=/' | sed 's/<\/string>//' > "_${MY_FILE%.webloc}.url"; 
 done
 
 
