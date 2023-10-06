@@ -1,11 +1,14 @@
-import Portfolio
-import Order
+#import Portfolio
+#import Order
 from TransactionType import TransactionType
-
+import logging
+import json
+import os.path
 
 class AccountType(object):
     def __init__(self, value: str):
-        if not value in ("Taxable", "Roth IRA", "Traditional IRA"):
+        logging.info(f'AccountType: {value}')
+        if value not in ("Taxable", "Roth IRA", "Traditional IRA"):
             raise ValueError("Allowed types: Taxable, Roth IRA, Traditional IRA")
         self.value = value
 
@@ -24,34 +27,42 @@ class AccountStatus(object):
 
 
 class Account(object):
-    def __init__(self, number: str, accountType: AccountType, accountStatus: AccountStatus, cashBalance: float = 0.0):
+    #def __init__(self, number: str, accountType: AccountType, accountStatus: AccountStatus, cashBalance: float = 0.0):
+    def __init__(self, number: str, accountType: AccountType):
         self.goals = []
-        self.number = number
-        self.cashBalance = cashBalance
+        self.account_number = number
+        #self.cashBalance = cashBalance
         self.accountType = accountType
-        self.accountStatus = accountStatus
+        #self.accountStatus = accountStatus
+        self.holdings = self.load_holdings(self.account_number)
 
+    def load_holdings(self, account_num):
+        '''load_holdings - input: account number, return: dict of holdings'''
+        account_file = os.path.abspath(f'Data/{account_num}_holdings.json')
+        logging.info(f'load_holdings: {account_file}')
 
-class Goal(object):
-    def __init__(self, name: str, targetYear: int, targetValue: float, portfolio: Portfolio = None,
-                 initialContribution: float = 0, monthlyContribution: float = 0, priority: str = ""):
-        self.name = name
-        self.targetYear = targetYear
-        self.targetValue = targetValue
-        self.initialContribution = initialContribution
-        self.monthlyContribution = monthlyContribution
-        if not (priority == "") and not (priority in ["Dreams", "Wishes", "Wants", "Needs"]):
-            raise ValueError("Wrong value set for Priority.")
-        self.priority = priority
-        self.portfolio = portfolio
+        with open(account_file, "r") as read_file:
+            json_data = json.load(read_file)
+        return json_data
+    def value(self):
+        ''' provide value of holdings a this time ...'''
+        return 1.0
+    def get_tickers(self):
+        '''iterate through holdings, return tickers (NO duplicates)'''
+        print (self.holdings)
+        ticker_set = set()
+        for holding in self.holdings:
+            ticker_set.add(holding['ticker'])
+        logging.info(f'get_tickers(): {ticker_set}')
+        return ticker_set
+    def get_positions(self):
+        '''get_positions() returns a list of holdings (Ticker/Quantity)'''
+        positions_set = set()
+        for holding in self.holdings:
+            positions_set.add( ( holding['ticker'], float(holding['quantity'] )) )
 
-    def getGoalProbabilities(self):
-        if (self.priority == ""):
-            raise ValueError("No value set for Priority.")
-        lookupTable = pd.read_csv("./Data/Goal Probability Table.csv")
-        match = (lookupTable["Realize"] == self.priority)
-        minProb = lookupTable["MinP"][(match)]
-        maxProb = lookupTable["MaxP"][(match)]
-        return minProb.values[0], maxProb.values[0]
+        logging.info(f'get_positions(): {positions_set}')
+        return positions_set
+
 
 # pip install pandas_market_calendars

@@ -1,5 +1,5 @@
 import Order
-class Portfolio:
+class Portfolio(object):
 
   def __init__(self, tickerString: str, expectedReturn: float, portfolioName: str, riskBucket: int):
 
@@ -36,7 +36,7 @@ class Portfolio:
     return data
 
   def printPortfolio(self):
-    print("Portfolio Name: " + self.name)
+    print(f"Portfolio Name: {self.name}")
     print("Risk Bucket: " + str(self.riskBucket))
     print("Expected Return: " + str(self.expectedReturn))
     print("Expected Risk: " + str(self.expectedRisk))

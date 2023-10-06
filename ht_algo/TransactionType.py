@@ -1,0 +1,5 @@
+
+
+
+class TransactionType(object):
+    pass
