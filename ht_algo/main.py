@@ -80,7 +80,7 @@ def main(argc, argv):
         for tuple in accounts[account].get_positions():
             ADJ_CLOSE_PRICE = 6
             try:
-                logging.debug(f'Ticker: {tuple[0]} Qty: {tuple[1]}')
+                logging.info(f'Ticker: {tuple[0]} Qty: {tuple[1]}')
                 md = marketdata[tuple[0]][1]
                 logging.debug(f'MD --> [{md[:-1]}]')
             except IndexError as ex:
