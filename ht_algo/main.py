@@ -89,7 +89,8 @@ def main(argc, argv):
             try:
                 adj_close = float(md.split(',')[ADJ_CLOSE_PRICE])/100000
                 value = adj_close * tuple[1]
-                logging.info (f'Account: #{account}, Holding: {tuple[0]},\tQuantity: {tuple[1]},\tPrice: ${adj_close},\tValue: ${value:.3f}')
+                # note .... for Value, insert the "," as a thousands separator in the printing the float
+                logging.info (f'Account: #{account}, Holding: {tuple[0]},\tQuantity: {tuple[1]},\tPrice: ${adj_close},\tValue: ${value:,.3f}')
             except IndexError as ex:
                 logging.exception(md)
                 logging.exception(f'Holding: {tuple[0]},\tQuantity: {tuple[1]},\tPrice: $0,\tValue: $0')
