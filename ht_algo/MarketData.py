@@ -17,9 +17,9 @@ class MarketData(object):
             # download dataframe
             self.data = pdr.get_data_yahoo(self.ticker, self.start_date, self.end_date)
         except Exception as err:
-            print(traceback.format_exc())
-            print(sys.exc_info()[2])
+            logging.exception(traceback.format_exc())
+            logging.exception(sys.exc_info()[2])
     def get_data(self):
-        return(self.data)
+        return self.data
     def get_ticker(self):
         return self.ticker

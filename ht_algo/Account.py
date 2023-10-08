@@ -9,12 +9,12 @@ class AccountType(object):
     """Account type, useful for Tax treatment, TLH etc."""
     def __init__(self, value: str):
         logging.info(f'AccountType: {value}')
-        if value.upper() not in ("Taxable", "Roth IRA", "Traditional IRA"):
+        if value not in ("Taxable", "Roth IRA", "Traditional IRA"):
             raise ValueError("Allowed types: Taxable, Roth IRA, Traditional IRA")
-        self.value = value.upper()
+        self.value = value
 
     def __eq__(self, other):
-        return self.value == other.value.upper()
+        return self.value == other.value
 
 
 class AccountStatus(object):
@@ -36,7 +36,7 @@ class Account(object):
         self.goals = []
         self.account_number = number
         #self.cashBalance = cashBalance
-        self.account_type = account_type.upper()
+        self.account_type = account_type
         #self.accountStatus = accountStatus
         self.holdings = self.load_holdings(self.account_number)
 
